@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alan D. Crane — Finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2d42;
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --gold: #b8944a;
+    --gold-light: #d4aa6a;
+    --slate: #5a7089;
+    --text: #2a3540;
+    --text-muted: #6b7e8f;
+    --border: rgba(13, 27, 42, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--navy); }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--navy);
+    transition: all 0.3s;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 60% at 75% 50%, rgba(184, 148, 74, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 80% at 25% 80%, rgba(90, 112, 137, 0.12) 0%, transparent 60%);
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 6rem 6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: rgba(245, 240, 232, 0.6);
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-institution {
+    font-size: 0.95rem;
+    color: rgba(245, 240, 232, 0.45);
+    margin-bottom: 3rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.75rem 1.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(245, 240, 232, 0.25);
+    color: rgba(245, 240, 232, 0.75);
+    padding: 0.75rem 1.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(245, 240, 232, 0.6);
+    color: var(--cream);
+    transform: translateY(-1px);
+  }
+
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8rem 6rem 6rem 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .photo-frame {
+    width: 280px;
+    height: 360px;
+    position: relative;
+  }
+
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    top: 16px; left: 16px;
+    right: -16px; bottom: -16px;
+    border: 1px solid rgba(184, 148, 74, 0.3);
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a2d42 0%, #243a52 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235a7089' fill-opacity='0.08'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .photo-icon {
+    font-size: 4rem;
+    color: rgba(184, 148, 74, 0.4);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .photo-label {
+    font-size: 0.75rem;
+    color: rgba(245, 240, 232, 0.3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-card {
+    margin-top: 2rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 1.25rem 1.5rem;
+    width: 280px;
+  }
+
+  .contact-card-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: rgba(245, 240, 232, 0.5);
+    padding: 0.35rem 0;
+  }
+
+  .contact-card-row:not(:last-child) {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .contact-icon {
+    width: 16px;
+    color: var(--gold);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 2rem;
+  }
+
+  .section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 200px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* RESEARCH */
+  .research-section {
+    background: var(--warm-white);
+  }
+
+  .research-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2.5rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .tab-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .tab-btn.active {
+    color: var(--navy);
+  }
+
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .paper-list {
+    list-style: none;
+    counter-reset: papers;
+  }
+
+  .paper-item {
+    counter-increment: papers;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 1rem;
+    align-items: start;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .paper-item.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .paper-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-style: italic;
+    padding-top: 0.2rem;
+  }
+
+  .paper-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+  }
+
+  .paper-title a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .paper-title a:hover {
+    border-color: var(--gold);
+  }
+
+  .paper-meta {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .paper-journal {
+    font-style: italic;
+    color: var(--slate);
+  }
+
+  .paper-status {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.15rem 0.5rem;
+    margin-top: 0.4rem;
+  }
+
+  /* LINKS */
+  .links-section {
+    background: var(--cream);
+  }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .link-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .link-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(13, 27, 42, 0.1);
+    border-color: var(--gold);
+  }
+
+  .link-card-icon {
+    font-size: 1.4rem;
+    color: var(--gold);
+  }
+
+  .link-card-title {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--navy);
+  }
+
+  .link-card-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  .contact-section h2 {
+    color: var(--cream);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-info p {
+    color: rgba(245, 240, 232, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .contact-detail {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-detail-icon {
+    color: var(--gold);
+    font-size: 1rem;
+    padding-top: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  .contact-detail-text {
+    font-size: 0.9rem;
+    color: rgba(245, 240, 232, 0.65);
+    line-height: 1.6;
+  }
+
+  .contact-detail-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #080f18;
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(245, 240, 232, 0.2);
+    letter-spacing: 0.06em;
+  }
+
+  /* MOBILE NAV */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 60px; left: 0; right: 0;
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 99;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .hero-text {
+      padding: 8rem 2rem 3rem;
+    }
+
+    .hero-visual {
+      padding: 0 2rem 4rem;
+      align-items: flex-start;
+    }
+
+    .photo-frame {
+      width: 200px;
+      height: 260px;
+    }
+
+    .contact-card { width: 100%; }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    section { padding: 4rem 1.5rem; }
+
+    .research-tabs {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+
+  /* SCROLL ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.6s 0.2s both; }
+  h1 { animation: fadeUp 0.6s 0.35s both; }
+  .hero-subtitle { animation: fadeUp 0.6s 0.5s both; }
+  .hero-institution { animation: fadeUp 0.6s 0.55s both; }
+  .hero-actions { animation: fadeUp 0.6s 0.65s both; }
+  .hero-visual { animation: fadeUp 0.8s 0.4s both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-name">Alan D. Crane</a>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#links">Links</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://drive.google.com/open?id=1BSP1ZeIBJrYUUoLEMwsfzOMQEyfASDd1" target="_blank">CV</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#research" onclick="closeMobile()">Research</a>
+  <a href="#links" onclick="closeMobile()">Links</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="https://drive.google.com/open?id=1BSP1ZeIBJrYUUoLEMwsfzOMQEyfASDd1" target="_blank">Curriculum Vitae</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Jones Graduate School of Business</div>
+    <h1>Alan <em>D.</em><br>Crane</h1>
+    <p class="hero-subtitle">Associate Professor of Finance</p>
+    <p class="hero-institution">Rice University · Houston, Texas</p>
+    <div class="hero-actions">
+      <a href="#research" class="btn-primary">View Research</a>
+      <a href="https://drive.google.com/open?id=1BSP1ZeIBJrYUUoLEMwsfzOMQEyfASDd1" class="btn-secondary" target="_blank">Download CV</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <div class="photo-icon">○</div>
+        <div class="photo-label">Photo</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-row">
+        <span class="contact-icon">✉</span>
+        Alan.D.Crane at rice.edu
+      </div>
+      <div class="contact-card-row">
+        <span class="contact-icon">✆</span>
+        713-348-5393
+      </div>
+      <div class="contact-card-row">
+        <span class="contact-icon">◎</span>
+        MS-531 · 6100 Main St, Houston TX
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="research-section" id="research">
+  <div class="section-inner">
+    <div class="section-label">Academic Work</div>
+    <h2>Research</h2>
+
+    <div class="research-tabs">
+      <button class="tab-btn active" onclick="switchTab('published', this)">Published &amp; Accepted</button>
+      <button class="tab-btn" onclick="switchTab('working', this)">Working Papers</button>
+      <button class="tab-btn" onclick="switchTab('inactive', this)">Inactive</button>
+    </div>
+
+    <div id="tab-published" class="tab-panel active">
+      <ol class="paper-list">
+        <li class="paper-item">
+          <span class="paper-num">1</span>
+          <div>
+            <div class="paper-title">The Impact of Regulation on Firm Value: Evidence From Political Connections</div>
+            <div class="paper-meta">with Andrew Koch</div>
+            <div class="paper-meta"><span class="paper-journal">Review of Corporate Finance Studies</span>, forthcoming</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">2</span>
+          <div>
+            <div class="paper-title">Real Effects of Markets on Politics: Evidence from U.S. Presidential Elections</div>
+            <div class="paper-meta">with Andrew Koch and Leming Lin</div>
+            <div class="paper-meta"><span class="paper-journal">American Economic Review: Insights</span>, 6(1), 73–88, 2024</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">3</span>
+          <div>
+            <div class="paper-title">Hedge Funds and Public Information Acquisition</div>
+            <div class="paper-meta">with Kevin Crotty and Tarik Umar</div>
+            <div class="paper-meta"><span class="paper-journal">Management Science</span>, 69(6), 3241–3262, 2023</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">4</span>
+          <div>
+            <div class="paper-title">The Value of Social Status</div>
+            <div class="paper-meta">with Alexander Butler, Bruce I. Carlin, Boyang Liu, and James P. Weston</div>
+            <div class="paper-meta"><span class="paper-journal">Economics Letters</span>, 206(C), 2021</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">5</span>
+          <div>
+            <div class="paper-title">How Skilled are Security Analysts?</div>
+            <div class="paper-meta">with Kevin Crotty</div>
+            <div class="paper-meta"><span class="paper-journal">The Journal of Finance</span>, 75(3), 1629–1675, 2020</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">6</span>
+          <div>
+            <div class="paper-title">The Causal Effects of Short-Selling Bans: Evidence from Eligibility Thresholds</div>
+            <div class="paper-meta">with Kevin Crotty, Sébastien Michenaud, and Patricia Naranjo</div>
+            <div class="paper-meta"><span class="paper-journal">The Review of Asset Pricing Studies</span>, 9(1), 137–170, 2019</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">7</span>
+          <div>
+            <div class="paper-title">Institutional Investor Cliques and Governance</div>
+            <div class="paper-meta">with Andrew Koch and Sébastien Michenaud</div>
+            <div class="paper-meta"><span class="paper-journal">Journal of Financial Economics</span>, 133(1), 175–197, 2019</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">8</span>
+          <div>
+            <div class="paper-title">Skewness Consequences of Seeking Alpha</div>
+            <div class="paper-meta">with Kerry Back and Kevin Crotty</div>
+            <div class="paper-meta"><span class="paper-journal">The Review of Financial Studies</span>, 31(12), 4720–4761, 2018</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">9</span>
+          <div>
+            <div class="paper-title">Choosing the Precision of Performance Metrics</div>
+            <div class="paper-meta">with Andrew Koch and Chisehn Wei</div>
+            <div class="paper-meta"><span class="paper-journal">Journal of Financial and Quantitative Analysis</span>, 53(4), 1911–1935, 2018</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">10</span>
+          <div>
+            <div class="paper-title">Passive versus Active Fund Performance: Do Index Funds Have Skill?</div>
+            <div class="paper-meta">with Kevin Crotty</div>
+            <div class="paper-meta"><span class="paper-journal">Journal of Financial and Quantitative Analysis</span>, 53(1), 33–64, 2018</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">11</span>
+          <div>
+            <div class="paper-title">Shareholder Litigation and Ownership Structure: Evidence from a Natural Experiment</div>
+            <div class="paper-meta">with Andrew Koch</div>
+            <div class="paper-meta"><span class="paper-journal">Management Science</span>, 64(1), 5–23, 2018</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">12</span>
+          <div>
+            <div class="paper-title">The Effect of Institutional Ownership on Payout Policy: Evidence from Index Thresholds</div>
+            <div class="paper-meta">with Sébastien Michenaud and James P. Weston</div>
+            <div class="paper-meta"><span class="paper-journal">Review of Financial Studies</span>, 29(6), 1377–1408, 2016</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div id="tab-working" class="tab-panel">
+      <ol class="paper-list">
+        <li class="paper-item">
+          <span class="paper-num">1</span>
+          <div>
+            <div class="paper-title"><a href="https://ssrn.com/abstract=4412436" target="_blank">Hurdle Rate Buffers and Bargaining Power in Asset Acquisition</a></div>
+            <div class="paper-meta">with John Barry, Bruce Carlin, and John Graham</div>
+            <span class="paper-status">Conditionally Accepted — JFE</span>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">2</span>
+          <div>
+            <div class="paper-title"><a href="https://ssrn.com/abstract=3945818" target="_blank">The Quality of Advice in Shareholder Voting</a></div>
+            <div class="paper-meta">with Patrick Blonien, Kevin Crotty, and David De Angelis</div>
+            <span class="paper-status">Revise &amp; Resubmit — RFS</span>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">3</span>
+          <div>
+            <div class="paper-title"><a href="https://ssrn.com/abstract=4633070" target="_blank">Detecting Informed Trade by Corporate Insiders</a></div>
+            <div class="paper-meta">with Patrick Blonien and Kevin Crotty</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">4</span>
+          <div>
+            <div class="paper-title"><a href="https://ssrn.com/abstract_id=5524863" target="_blank">Should the Public be Concerned about Congressional Stock Trading?</a></div>
+            <div class="paper-meta">with Patrick Blonien and Kevin Crotty</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">5</span>
+          <div>
+            <div class="paper-title">Nepo Credit: The Effect of Borrowed Credit Histories</div>
+            <div class="paper-meta">with Alex Butler, Erik Mayer, and Asli Uyanik</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div id="tab-inactive" class="tab-panel">
+      <ol class="paper-list">
+        <li class="paper-item">
+          <span class="paper-num">1</span>
+          <div>
+            <div class="paper-title">The Litigation Environment of a Firm and its Impact on Financial Policy</div>
+          </div>
+        </li>
+        <li class="paper-item">
+          <span class="paper-num">2</span>
+          <div>
+            <div class="paper-title">Is There a Disposition Effect in Corporate Investment Decisions? Evidence from Real Estate Investment Trusts</div>
+            <div class="paper-meta">with Jay C. Hartzell</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- LINKS -->
+<section class="links-section" id="links">
+  <div class="section-inner">
+    <div class="section-label">External Profiles</div>
+    <h2>Links</h2>
+    <div class="links-grid">
+      <a href="https://scholar.google.com/citations?user=49l2gTMAAAAJ&hl=en" class="link-card" target="_blank">
+        <span class="link-card-icon">◈</span>
+        <div class="link-card-title">Google Scholar</div>
+        <div class="link-card-desc">Citation profile and h-index</div>
+      </a>
+      <a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=838260" class="link-card" target="_blank">
+        <span class="link-card-icon">◉</span>
+        <div class="link-card-title">SSRN</div>
+        <div class="link-card-desc">Working papers and downloads</div>
+      </a>
+      <a href="https://www.linkedin.com/in/alan-crane-71952b160/" class="link-card" target="_blank">
+        <span class="link-card-icon">◑</span>
+        <div class="link-card-title">LinkedIn</div>
+        <div class="link-card-desc">Professional network</div>
+      </a>
+      <a href="https://business.rice.edu/person/alan-crane" class="link-card" target="_blank">
+        <span class="link-card-icon">◐</span>
+        <div class="link-card-title">Rice Business</div>
+        <div class="link-card-desc">Faculty profile page</div>
+      </a>
+      <a href="https://business.rice.edu/wisdom" class="link-card" target="_blank">
+        <span class="link-card-icon">◇</span>
+        <div class="link-card-title">Rice Business Wisdom</div>
+        <div class="link-card-desc">Research for practitioners</div>
+      </a>
+      <a href="https://drive.google.com/open?id=1BSP1ZeIBJrYUUoLEMwsfzOMQEyfASDd1" class="link-card" target="_blank">
+        <span class="link-card-icon">◻</span>
+        <div class="link-card-title">Curriculum Vitae</div>
+        <div class="link-card-desc">Full academic vita (PDF)</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <div class="section-label" style="color: var(--gold);">Get in Touch</div>
+    <h2>Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>Associate Professor of Finance at the Jones Graduate School of Business, Rice University. Research interests span corporate finance, financial intermediaries, and market microstructure.</p>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">✉</span>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-text">Alan.D.Crane at rice.edu</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">✆</span>
+          <div>
+            <div class="contact-detail-label">Phone</div>
+            <div class="contact-detail-text">713-348-5393</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-info">
+        <div class="contact-detail">
+          <span class="contact-detail-icon">◎</span>
+          <div>
+            <div class="contact-detail-label">Office</div>
+            <div class="contact-detail-text">
+              Jones Graduate School of Business<br>
+              6100 Main Street, MS-531<br>
+              Houston, Texas 77005
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="https://drive.google.com/open?id=1BSP1ZeIBJrYUUoLEMwsfzOMQEyfASDd1" class="btn-primary" target="_blank">Download CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Alan D. Crane · Rice University
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+  }
+
+  // Tabs
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+    observePapers();
+  }
+
+  // Scroll reveal for papers
+  function observePapers() {
+    const items = document.querySelectorAll('.paper-item:not(.visible)');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    items.forEach(item => observer.observe(item));
+  }
+
+  observePapers();
+</script>
+</body>
+</html>
